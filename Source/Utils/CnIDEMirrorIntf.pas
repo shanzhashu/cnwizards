@@ -39,7 +39,7 @@ interface
 {$I CnWizards.inc}
 
 uses
-  SysUtils, ToolsAPI;
+  SysUtils, ToolsAPI {$IFDEF DELPHI102_TOKYO}, Themes {$ENDIF};
 
 {$IFDEF DELPHI102_TOKYO}
 
@@ -53,7 +53,8 @@ uses
   使用 10.2.3 中这批接口的 GUID，这样能查询到接口，然后暗地里强行转换成我们
   定义的接口，便能照常调用了。在 10.2.0/1/2 或以下版本，这些接口是查询不到的。
 
-  另外，新接口中如果互相引用，尤其是方法里，如 Service 里头的 Notifier 通知
+  另外，新接口中如果互相引用，尤其是方法里，如 Service 里头的 Notifier 通知，
+  则要修改仿写的接口中的引用接口名，同样换成仿写的接口。
 }
 
 const
