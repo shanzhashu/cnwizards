@@ -7290,12 +7290,12 @@ end;
 function CnOtaIDESupportsTheming: Boolean;
 {$IFDEF IDE_SUPPORT_THEMING}
 var
-  Theming: IOTAIDEThemingServices;
+  Theming: ICnOTAIDEThemingServices;
 {$ENDIF}
 begin
   Result := False;
 {$IFDEF IDE_SUPPORT_THEMING}
-  if Supports(BorlandIDEServices, IOTAIDEThemingServices, Theming) then
+  if Supports(BorlandIDEServices, GUID_IOTAIDETHEMINGSERVICES, Theming) then
     Result := True;
 {$ENDIF}
 end;
@@ -7304,12 +7304,12 @@ end;
 function CnOtaGetIDEThemingEnabled: Boolean;
 {$IFDEF IDE_SUPPORT_THEMING}
 var
-  Theming: IOTAIDEThemingServices;
+  Theming: ICnOTAIDEThemingServices;
 {$ENDIF}
 begin
   Result := False;
 {$IFDEF IDE_SUPPORT_THEMING}
-  if Supports(BorlandIDEServices, IOTAIDEThemingServices, Theming) then
+  if Supports(BorlandIDEServices, GUID_IOTAIDETHEMINGSERVICES, Theming) then
     Result := Theming.IDEThemingEnabled;
 {$ENDIF}
 end;
@@ -7318,12 +7318,12 @@ end;
 function CnOtaGetActiveThemeName: string;
 {$IFDEF IDE_SUPPORT_THEMING}
 var
-  Theming: IOTAIDEThemingServices;
+  Theming: ICnOTAIDEThemingServices;
 {$ENDIF}
 begin
   Result := '';
 {$IFDEF IDE_SUPPORT_THEMING}
-  if Supports(BorlandIDEServices, IOTAIDEThemingServices, Theming) then
+  if Supports(BorlandIDEServices, GUID_IOTAIDETHEMINGSERVICES, Theming) then
     Result := Theming.ActiveTheme;
 {$ENDIF}
 end;

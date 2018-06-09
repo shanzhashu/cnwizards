@@ -56,7 +56,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Controls, Forms, ToolsAPI, AppEvnts,
-  Consts, ExtCtrls, Contnrs, CnWizUtils, CnClasses;
+  Consts, ExtCtrls, Contnrs, CnWizUtils, CnClasses, CnIDEMirrorIntf;
   
 type
   PCnWizNotifierRecord = ^TCnWizNotifierRecord;
@@ -297,7 +297,7 @@ type
 
 { TCnIDEThemingServicesNotifier }
 
-  TCnIDEThemingServicesNotifier = class(TNotifierObject, IOTANotifier, INTAIDEThemingServicesNotifier)
+  TCnIDEThemingServicesNotifier = class(TNotifierObject, IOTANotifier, ICnNTAIDEThemingServicesNotifier)
   private
     FNotifierServices: TCnWizNotifierServices;
   protected
@@ -844,7 +844,7 @@ var
   IServices: IOTAServices;
   IDebuggerService: IOTADebuggerServices;
 {$IFDEF IDE_SUPPORT_THEMING}
-  ThemingService: IOTAIDEThemingServices;
+  ThemingService: ICnOTAIDEThemingServices;
 {$ENDIF}
 begin
   inherited;
@@ -892,10 +892,10 @@ begin
   FCnWizDebuggerNotifier := TCnWizDebuggerNotifier.Create(Self);
   FDebuggerNotifierIndex := IDebuggerService.AddNotifier(FCnWizDebuggerNotifier as IOTADebuggerNotifier);
 {$IFDEF IDE_SUPPORT_THEMING}
-  if Supports(BorlandIDEServices, IOTAIDEThemingServices, ThemingService) then
+  if Supports(BorlandIDEServices, GUID_IOTAIDETHEMINGSERVICES, ThemingService) then
   begin
     FCnIDEThemingServicesNotifier := TCnIDEThemingServicesNotifier.Create(Self);
-    FThemingNotifierIndex := ThemingService.AddNotifier(FCnIDEThemingServicesNotifier as INTAIDEThemingServicesNotifier);
+    FThemingNotifierIndex := ThemingService.AddNotifier(FCnIDEThemingServicesNotifier as ICnNTAIDEThemingServicesNotifier);
   end;
 {$ENDIF}
   CallWndProcHook := SetWindowsHookEx(WH_CALLWNDPROC, CallWndProc, 0, GetCurrentThreadId);
@@ -914,7 +914,7 @@ var
   IDebuggerService: IOTADebuggerServices;
   I: Integer;
 {$IFDEF IDE_SUPPORT_THEMING}
-  ThemingService: IOTAIDEThemingServices;
+  ThemingService: ICnOTAIDEThemingServices;
 {$ENDIF}
 begin
 {$IFDEF Debug}
@@ -937,7 +937,7 @@ begin
   if FThemingNotifierIndex <> 0 then
   begin
 {$IFDEF IDE_SUPPORT_THEMING}
-    if Supports(BorlandIDEServices, IOTAIDEThemingServices, ThemingService) then
+    if Supports(BorlandIDEServices, GUID_IOTAIDETHEMINGSERVICES, ThemingService) then
       ThemingService.RemoveNotifier(FThemingNotifierIndex);
 {$ENDIF}
   end;

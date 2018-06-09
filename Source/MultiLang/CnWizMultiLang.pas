@@ -182,11 +182,11 @@ var
 procedure RegisterThemeClass;
 {$IFDEF IDE_SUPPORT_THEMING}
 var
-  Theming: IOTAIDEThemingServices250;
+  Theming: ICnOTAIDEThemingServices250;
 {$ENDIF}
 begin
 {$IFDEF IDE_SUPPORT_THEMING}
-  if Supports(BorlandIDEServices, IOTAIDEThemingServices250, Theming) then
+  if Supports(BorlandIDEServices, GUID_IOTAIDETHEMINGSERVICES250, Theming) then
   begin
     Theming.RegisterFormClass(TCnTranslateForm);
 {$IFDEF DEBUG}
